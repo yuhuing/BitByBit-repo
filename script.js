@@ -24,9 +24,8 @@ const VALID_OTP = "67890";
 
     if (otpInput === VALID_OTP) {
       alert("OTP verified successfully!");
-      document.getElementById("otp-section").style.display = "none";
-      document.getElementById("meeting-id-section").style.display = "flex";
-      otpError.style.display = "none";
+      window.location.href = `dashboard.html`;
+      
     } else {
       otpAttemptsLeft--;
       otpError.style.display = "block";
