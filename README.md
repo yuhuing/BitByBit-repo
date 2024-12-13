@@ -162,7 +162,6 @@ Bit By Bit Project
 
       <p class="info-text">Your information is secure and encrypted.</p>
     </div>
-
     <script>
       const VALID_OTP = "67890";
       const VALID_MEETING_ID = "12345";
@@ -174,7 +173,7 @@ Bit By Bit Project
         const emailError = document.getElementById("email-error");
 
         if (emailInput.includes("@") && emailInput.includes(".")) {
-          alert("OTP has been sent to your email (mockup). OTP: " + VALID_OTP);
+          alert(`OTP has been sent to your email (mockup). OTP: ${VALID_OTP}`);
           document.getElementById("email-section").style.display = "none";
           document.getElementById("otp-section").style.display = "flex";
           emailError.style.display = "none";
@@ -213,7 +212,7 @@ Bit By Bit Project
 
         if (meetingIdInput === VALID_MEETING_ID) {
           alert("Meeting ID verified successfully!");
-          window.location.href = "meeting.html";
+          window.location.href = `meeting.html?meetingID=${meetingIdInput}`;
         } else {
           meetingAttemptsLeft--;
           meetingError.style.display = "block";
@@ -230,3 +229,4 @@ Bit By Bit Project
     </script>
   </body>
 </html>
+
