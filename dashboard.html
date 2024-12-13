@@ -1,0 +1,88 @@
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #4e7d96, #ff844b);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333;
+}
+
+.container {
+    background: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #374851;
+}
+
+button, .btn {
+    padding: 12px 20px;
+    background-color: #c24308;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 15px 0;
+    width: 360;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover, .btn:hover {
+    background-color: #862c02;
+    transform: scale(1.05);
+}
+
+button:active, .btn:active {
+    transform: scale(0.98);
+}
+
+hr {
+    border: 1px solid #ddd;
+    margin: 20px 0;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meeting Options</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Welcome</h1>
+        <hr>
+
+        <div class="button-container">
+            <a href="meeting.html" class="btn">Create Meeting</a>
+            <a href="join-meeting.html" class="btn">Join Meeting</a>
+        </div>
+    </div>
+
+</body>
+</html>
