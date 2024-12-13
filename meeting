@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Meet Prototype</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #202124;
+            padding: 10px 20px;
+            color: white;
+        }
+
+        .navbar .title {
+            font-size: 18px;
+        }
+
+        .navbar .buttons button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .video-tile {
+            background-color: black;
+            width: 300px;
+            height: 200px;
+            margin: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #202124;
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .controls button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+
+        .controls button:hover {
+            color: #4285f4;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Your Meeting</h1>
+        <p id="meeting-id-display"></p>
+    </header>
+
+    <div class="navbar">
+        <div class="title">Google Meet Prototype</div>
+        <div class="buttons">
+            <button>📄 Info</button>
+            <button>🔧 Settings</button>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="video-tile">User 1</div>
+        <div class="video-tile">User 2</div>
+        <div class="video-tile">User 3</div>
+        <div class="video-tile">User 4</div>
+    </div>
+
+    <div class="controls">
+        <button>🎤 Mute</button>
+        <button>📷 Video</button>
+        <button>📞 Leave</button>
+        <button>💬 Chat</button>
+    </div>
+
+    <script>
+        // Extract the Meeting ID from the query string
+        const urlParams = new URLSearchParams(window.location.search);
+        const meetingID = urlParams.get("meetingID");
+  
+        // Display the Meeting ID on the page
+        const meetingIdDisplay = document.getElementById("meeting-id-display");
+        meetingIdDisplay.textContent = meetingID
+          ? `Meeting ID: ${meetingID}`
+          : "No Meeting ID provided.";
+    </script>
+</body>
+</html>
