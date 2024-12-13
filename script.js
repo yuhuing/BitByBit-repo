@@ -1,5 +1,5 @@
 const VALID_OTP = Math.floor(10000 + Math.random() * 90000).toString();
-const VALID_MEETING_ID = Math.floor(10000 + Math.random() * 90000).toString();;
+const VALID_MEETING_ID = 12345;
 let otpAttemptsLeft = 5;
 let meetingAttemptsLeft = 5;
 
@@ -23,7 +23,7 @@ function verifyOTP() {
   const otpError = document.getElementById("otp-error");
 
   if (otpInput === VALID_OTP) {
-    alert(`OTP verified successfully! Your Meeting ID is: ${VALID_MEETING_ID}`);
+    alert(`OTP verified successfully!`);
     document.getElementById("otp-section").style.display = "none";
     document.getElementById("meeting-id-section").style.display = "flex";
     otpError.style.display = "none";
