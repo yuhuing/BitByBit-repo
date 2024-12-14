@@ -185,7 +185,7 @@
     <div class="controls">
         <button onclick="confirmAction('microphone')">🎤 Mute</button>
         <button onclick="confirmAction('camera')">📷 Video</button>
-        <button>📞 Leave</button>
+        <button onclick="leave()">📞 Leave</button>
         <button onclick="toggleChat()">💬 Chat</button>
     </div>
 
@@ -310,6 +310,12 @@
         // Function to close the modal
         function closeModal() {
             document.getElementById("confirmation-modal").style.display = "none";
+        }
+
+        //Function to leave the meeting
+        function leave(){
+            alert("You have leave the meeting");
+            window.location.href = `dashboard.html`;
         }
     </script>
 </body>
