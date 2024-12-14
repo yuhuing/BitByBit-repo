@@ -55,6 +55,9 @@ const VALID_OTP = "67890";
       if (meetingAttemptsLeft <= 0) {
         alert("Too many failed attempts. Access denied.");
         document.getElementById("meeting-id").disabled = true;
+        document.getElementById("join-button").disabled = true;
+        document.getElementById("back-button").disabled = true;
+        
         meetingError.textContent =
           "You have been locked out due to too many failed attempts.";
       }
