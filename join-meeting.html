@@ -12,8 +12,8 @@
       <div id="meeting-id-section" class="input-wrapper" style="display: flex; flex-direction: column; align-items: center;">
         <label for="meeting-id">Meeting ID:</label>
         <input type="text" id="meeting-id" placeholder="Enter your Meeting ID" />
-        <button onclick="submitMeetingID()">Join Meet</button>
-        <button onclick="window.location.href='dashboard.html';">Back</button>
+        <button id="join-button" onclick="submitMeetingID()">Join Meet</button>
+        <button id="back-button" onclick="window.location.href='dashboard.html';">Back</button>
         <p id="meeting-error" class="error-message">Invalid Meeting ID. Please try again.</p>
       </div>
     </div>
