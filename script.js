@@ -60,3 +60,18 @@ const VALID_OTP = "67890";
       }
     }
   }
+
+  function generateRandomMeetingId() {
+    const length = 5;
+    const chars = '0123456789';
+    let meetingId = '';
+    for (let i = 0; i < length; i++) {
+      meetingId += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return meetingId;
+  }
+
+  function createMeeting() {
+      const meetingId = generateRandomMeetingId();
+      alert(`Meeting Created Successfully! Your Meeting ID is: ${meetingId}`)
+    }
