@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Interview Platform</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #videoElement {
+            width: 60%;
+            height: auto;
+            border: 1px solid #ccc;
+        }
+        .warning {
+            color: red;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Welcome to the Virtual Interview</h1>
+    <p>Please make sure you're in a private, quiet space for the interview.</p>
+    
+    <!-- Video Element for face tracking -->
+    <video id="videoElement" autoplay></video>
+    <p id="faceWarning" class="warning"></p>
+
+    <button onclick="lockScreen()">Start Interview (Screen Lock)</button>
+
+    <!-- Hidden input for face recognition -->
+    <input type="file" accept="image/*" capture="camera" style="display: none;" id="faceCapture" />
+
+    <!-- Screensharing -->
+    <div id="screenShareContainer"></div>
+    <button onclick="startScreenShare()">Share Screen</button>
+    <button onclick="stopScreenShare()">Stop Sharing</button>
+    
+    <script>
+        // Initialize camera stream for face detection
+        const video = document.getElementById('videoElement');
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+            })
+            .catch(err => {
+                console.error("Error accessing webcam: " + err);
+            });
+
+        // Face detection and monitoring logic (simplified for demo purposes)
+        function detectFaces() {
+            // This is where you would integrate with an AI face recognition API (e.g., AWS Rekognition, Google Cloud Vision)
+            // Here, we'll just simulate with a random warning to illustrate functionality
+            const faceWarning = document.getElementById('faceWarning');
+            const facesDetected = Math.random() > 0.9; // Simulate extra face detection
+            if (facesDetected) {
+                faceWarning.textContent = "Warning: Multiple faces detected!";
+            } else {
+                faceWarning.textContent = "";
+            }
+        }
+        setInterval(detectFaces, 5000); // Check every 5 seconds
+
+        // Screen lock for anti-cheating
+        function lockScreen() {
+            document.documentElement.requestFullscreen()
+                .then(() => {
+                    alert('Your screen is now locked for the interview.');
+                })
+                .catch(err => {
+                    console.error('Error locking screen:', err);
+                });
+        }
+
+        // Screen sharing (simplified version)
+        let screenStream;
+        function startScreenShare() {
+            navigator.mediaDevices.getDisplayMedia({ video: true })
+                .then(stream => {
+                    screenStream = stream;
+                    const screenContainer = document.getElementById('screenShareContainer');
+                    const screenVideo = document.createElement('video');
+                    screenVideo.srcObject = stream;
+                    screenVideo.autoplay = true;
+                    screenVideo.style.width = '100%';
+                    screenContainer.appendChild(screenVideo);
+                })
+                .catch(err => {
+                    console.error("Error starting screen sharing: " + err);
+                });
+        }
+
+        function stopScreenShare() {
+            if (screenStream) {
+                screenStream.getTracks().forEach(track => track.stop());
+                document.getElementById('screenShareContainer').innerHTML = '';
+            }
+        }
+    </script>
+</body>
+</html>
