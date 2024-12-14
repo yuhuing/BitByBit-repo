@@ -1,7 +1,7 @@
 const VALID_OTP = "67890";
   const VALID_MEETING_ID = "12345";
   let otpAttemptsLeft = 5;
-  let meetingAttemptsLeft = 5;
+  let meetingAttemptsLeft = parseInt(localStorage.getItem("meetingAttemptsLeft")) || 5;
 
   function sendOTP() {
     const emailInput = document.getElementById("email").value;
@@ -46,9 +46,11 @@ const VALID_OTP = "67890";
 
     if (meetingIdInput === VALID_MEETING_ID) {
       alert("Meeting ID verified successfully!");
+      localStorage.removeItem("meetingAttemptsLeft");
       window.location.href = `meeting.html?meetingID=${meetingIdInput}`;
     } else {
       meetingAttemptsLeft--;
+      localStorage.setItem("meetingAttemptsLeft", meetingAttemptsLeft);
       meetingError.style.display = "block";
       meetingError.textContent = `Invalid Meeting ID. ${meetingAttemptsLeft} attempt(s) left.`;
 
