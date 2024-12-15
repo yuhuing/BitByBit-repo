@@ -25,6 +25,7 @@
     <h1>Welcome to the Virtual Interview</h1>
     <p>Please make sure you're in a private, quiet space for the interview.</p>
     
+    
     <!-- Video Element for face tracking -->
     <video id="videoElement" autoplay></video>
     <p id="faceWarning" class="warning"></p>
@@ -35,9 +36,15 @@
     <input type="file" accept="image/*" capture="camera" style="display: none;" id="faceCapture" />
 
     <!-- Screensharing -->
-    <div id="screenShareContainer"></div>
-    <button onclick="startScreenShare()">Share Screen</button>
-    <button onclick="stopScreenShare()">Stop Sharing</button>
+    <div id="screenShareContainer">
+      <button onclick="startScreenShare()">Share Screen</button>
+      <button onclick="stopScreenShare()">Stop Sharing</button>
+    </div>
+
+    <div id="screenShareContainer">
+      <button onclick="window.location.href='meeting.html';">Go Back to Meeting</button>
+    </div>
+
     
     <script>
         // Initialize camera stream for face detection
@@ -99,6 +106,8 @@
                 document.getElementById('screenShareContainer').innerHTML = '';
             }
         }
+
+        
     </script>
 </body>
 </html>
