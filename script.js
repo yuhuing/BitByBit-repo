@@ -1,7 +1,16 @@
+//For the login.html
 const VALID_OTP = generateRandomOTP();
-const VALID_MEETING_ID = "12345";
 let otpAttemptsLeft = 5;
-let meetingAttemptsLeft = parseInt(localStorage.getItem("meetingAttemptsLeft")) || 5;
+
+function generateRandomOTP() {
+  const length = 5;
+  const chars = '0123456789';
+  let OTP = '';
+  for (let i = 0; i < length; i++) {
+    OTP += chars.charAt(Math.floor(Math.random() * chars.length));  
+  }
+  return OTP;
+}
 
 function sendOTP() {
   const emailInput = document.getElementById("email").value;
@@ -49,6 +58,10 @@ function verifyOTP() {
   }
 }
 
+//for the join-meeting.html
+const VALID_MEETING_ID = "12345";
+let meetingAttemptsLeft = parseInt(localStorage.getItem("meetingAttemptsLeft")) || 5;
+
 function submitMeetingID() {
   const meetingIdInput = document.getElementById("meeting-id").value;
   const meetingError = document.getElementById("meeting-error");
@@ -56,7 +69,8 @@ function submitMeetingID() {
   if (meetingIdInput === VALID_MEETING_ID) {
     alert("Meeting ID verified successfully!");
     localStorage.removeItem("meetingAttemptsLeft");
-    window.location.href = `meeting.html?meetingID=${meetingIdInput}`;
+    localStorage.setItem("meetingID", meetingIdInput);
+    window.location.href = `meeting.html`;
   } else {
     meetingAttemptsLeft--;
     localStorage.setItem("meetingAttemptsLeft", meetingAttemptsLeft);
@@ -75,27 +89,105 @@ function submitMeetingID() {
   }
 }
 
+//for the dashboard.html
 function generateRandomMeetingId() {
   const length = 5;
   const chars = '0123456789';
-  let meetingId = '';
+  let meetingID = '';
   for (let i = 0; i < length; i++) {
-    meetingId += chars.charAt(Math.floor(Math.random() * chars.length));
+    meetingID += chars.charAt(Math.floor(Math.random() * chars.length));
   }
-  return meetingId;
+  return meetingID;
 }
 
 function createMeeting() {
-  const meetingId = generateRandomMeetingId();
-  alert(`Meeting Created Successfully! Your Meeting ID is: ${meetingId}`);
+  const meetingID = generateRandomMeetingId();
+  alert(`Meeting Created Successfully! Your Meeting ID is: ${meetingID}`);
+  localStorage.setItem("meetingID", meetingID);
+  window.location.href = `meeting.html`;
 }
 
-function generateRandomOTP() {
-  const length = 5;
-  const chars = '0123456789';
-  let OTP = '';
-  for (let i = 0; i < length; i++) {
-    OTP += chars.charAt(Math.floor(Math.random() * chars.length));  
+//for the ai_face_feacture.html
+let isCameraOn = false;
+let isAIPreviewEnabled = false;
+const videoPreview = document.getElementById("video-preview");
+const aiStatusBar = document.getElementById("ai-status-bar");
+
+updateAIStatus();
+
+function showCamera() {
+  isCameraOn = !isCameraOn;
+  videoPreview.style.backgroundColor = isCameraOn ? "#000" : "black";
+  videoPreview.textContent = isCameraOn
+      ? "Camera is On (Mockup)"
+      : "Camera is Off (Mockup)";
+}
+
+function togglePreview() {
+  if (!isCameraOn) {
+    alert("Please turn on the camera first!");
+    return;
   }
-  return OTP;
+  isAIPreviewEnabled = !isAIPreviewEnabled;
+  videoPreview.textContent = isAIPreviewEnabled
+    ? "AI Face Previewing (Mockup)"
+    : "Camera is On (Mockup)";
+}
+
+function confirmAndEnable() {
+  if (!isCameraOn) {
+    alert("Please turn on the camera first!");
+    return;
+  }
+  if (isAIPreviewEnabled) {
+    const confirmEnable = confirm(
+      "Are you sure you want to enable AI Face for your meeting?"
+    );
+    if (confirmEnable) {
+      alert("AI Face is enabled for your meeting.");
+      sessionStorage.setItem("aiFaceEnabled", "true");
+      updateAIStatus(); // Update status bar
+      goToMeetingPage();
+    }
+  } else {
+    alert("Please enable AI Preview first!");
+  }
+}
+
+function removeAI() {
+  const aiFaceStatus = sessionStorage.getItem("aiFaceEnabled");
+
+  if (aiFaceStatus !== "true") {
+    alert("AI Face is currently not on!");
+    aiStatusBar.textContent = "AI Face is currently off"; // Update status message
+    aiStatusBar.classList.remove("on");
+    aiStatusBar.classList.add("off");
+  } else {
+    const confirmRemove = confirm("Are you sure you want to remove AI Face?");
+    if (confirmRemove) {
+      sessionStorage.setItem("aiFaceEnabled", "false");
+      aiStatusBar.textContent = "AI Face is currently off"; // Update status message
+      aiStatusBar.classList.remove("on");
+      aiStatusBar.classList.add("off");
+      alert("AI Face has been removed.");
+      goToMeetingPage();
+    }
+  }
+}
+
+function updateAIStatus() {
+  const aiFaceStatus = sessionStorage.getItem("aiFaceEnabled");
+  if (aiFaceStatus === "true") {
+    aiStatusBar.textContent = "AI Face is currently on"; // Update status message
+    aiStatusBar.classList.remove("off");
+    aiStatusBar.classList.add("on");
+  } else {
+    aiStatusBar.textContent = "AI Face is currently off"; // Update status message
+    aiStatusBar.classList.remove("on");
+    aiStatusBar.classList.add("off");
+  }
+}
+
+function goToMeetingPage() {
+  window.location.href = "meeting.html";
 }
